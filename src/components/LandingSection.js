@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Heading, VStack ,AbsoluteCenter} from "@chakra-ui/react";
+import { Avatar, Heading, VStack, AbsoluteCenter } from "@chakra-ui/react";
 import FullScreenSection from "./FullScreenSection";
 
 const greeting = "Hello, I am PJ!";
@@ -14,15 +14,29 @@ const LandingSection = () => (
     alignItems="center"
     isDarkBackground
     backgroundColor="#2A4365"
-    id='home-section'
+    id="home-section"
   >
     <VStack>
-      <Avatar size='2xl' name='Pedro Orozco' src='https://www.pedrorozco.com/img/pedroToon.bd4efecc.jpg' />
-      <Heading as="h3" size='sm' paddingTop='2' paddingBottom='12'>{greeting}</Heading>
-      <Heading as="h2" size="xl">{bio1}</Heading>
-      <Heading as="h2" size="xl">{bio2}</Heading>
+      <Avatar
+        size="2xl"
+        name="Pedro Orozco"
+        src="https://www.pedrorozco.com/img/pedroToon.bd4efecc.jpg"
+      />
+      <Heading
+        as="h3"
+        fontSize={{ base: "xl", md: "2xl" }}
+        paddingTop="2"
+        paddingBottom="12"
+      >
+        {greeting}
+      </Heading>
+      <Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }}>
+        {bio1}
+      </Heading>
+      <Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }}>
+        {bio2}
+      </Heading>
     </VStack>
-   
   </FullScreenSection>
 );
 

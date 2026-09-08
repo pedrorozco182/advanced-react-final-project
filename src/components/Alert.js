@@ -14,18 +14,24 @@ import { useRef } from "react";
 function Alert() {
   const { isOpen, type, message, onClose } = useAlertContext();
   const cancelRef = useRef();
-  const isSuccess = type === "success"
+  const isSuccess = type === "success";
 
   return (
     <AlertDialog
       isOpen={isOpen}
       leastDestructiveRef={cancelRef}
       onClose={onClose}
+      zIndex={9999}
+      closeOnOverlayClick
     >
       <AlertDialogOverlay>
-        <AlertDialogContent py={4} backgroundColor={isSuccess ? '#81C784' : '#FF8A65'}>
+        <AlertDialogContent
+          mt={4}
+          py={4}
+          backgroundColor={isSuccess ? "#81C784" : "#FF8A65"}
+        >
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            {isSuccess ? 'All good!' : 'Oops!'}
+            {isSuccess ? "All good!" : "Oops!"}
           </AlertDialogHeader>
           <AlertDialogBody>{message}</AlertDialogBody>
         </AlertDialogContent>

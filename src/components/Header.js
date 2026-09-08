@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -7,8 +7,8 @@ import {
   faMedium,
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
-import { Box, HStack,Link } from "@chakra-ui/react";
-import {SocialButton } from './SocialButton'
+import { Box, HStack, Link } from "@chakra-ui/react";
+import { SocialButton } from "./SocialButton";
 
 const socials = [
   {
@@ -17,7 +17,7 @@ const socials = [
   },
   {
     icon: faGithub,
-    url: "https://github.com/pedrorozco182",
+    url: "https://github.com",
   },
   {
     icon: faLinkedin,
@@ -33,6 +33,9 @@ const socials = [
   },
 ];
 
+const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+
+console.log(isSmallScreen);
 const Header = () => {
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
@@ -56,29 +59,31 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      zIndex={999}
     >
-      <Box color="white"  margin="0 auto">
+      <Box color="white" margin="0 auto">
         <HStack
-          px={16}
+          px={[4, 16]}
           py={4}
           justifyContent="space-between"
           alignItems="center"
         >
           <nav>
-
             {/* Add social media links based on the `socials` data */}
-            {socials.map((props)=><SocialButton {...props} />)}
+            {socials.map((props) => (
+              <SocialButton key={props.url} {...props} />
+            ))}
           </nav>
-          <nav>
-            <HStack spacing={4}>
-              {/* Add links to Projects and Contact me section */}
-              <Link onClick={handleClick('home')}>Home</Link>
-              <Link  onClick={handleClick('projects')}>Projects</Link>
-              <Link onClick={handleClick('contact')}>Contact Me</Link>
-
-             
-            </HStack>
-          </nav>
+          {isSmallScreen ? null : (
+            <nav>
+              <HStack spacing={4}>
+                {/* Add links to Projects and Contact me section */}
+                <Link onClick={handleClick("home")}>Home</Link>
+                <Link onClick={handleClick("projects")}>Projects</Link>
+                <Link onClick={handleClick("contact")}>Contact Me</Link>
+              </HStack>
+            </nav>
+          )}
         </HStack>
       </Box>
     </Box>

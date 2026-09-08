@@ -1,4 +1,12 @@
-import { Heading, HStack, Image, Text, VStack,Button,Box } from "@chakra-ui/react";
+import {
+  Heading,
+  HStack,
+  Image,
+  Text,
+  VStack,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -9,18 +17,31 @@ const CustomCard = ({ title, description, imageSrc }) => {
   // You should be able to implement the component with the elements imported above.
   // Feel free to import other UI components from Chakra UI if you wish to.
   return (
-    <Box shadow='dark-lg'  rounded='lg' color='black' backgroundColor='white' maxWidth='800' >
-      <VStack display='flex' alignItems='start' >
-        <Image src={imageSrc} alt={title} roundedTop='lg' />
-        <VStack display='flex' alignItems='start' padding='4'>
-        <Heading size='md'>{title}</Heading>
-        <Text color='grey'>{description}</Text>
-        <Button variant='link' aria-label='button see more' role='button'>
-              <HStack alignItems='center'> <Text>See more</Text> <FontAwesomeIcon icon={faArrowRight} /> </HStack>
-        </Button>
-           </VStack>
-          </VStack>
-   </Box>)
+    <Box
+      shadow="dark-lg"
+      rounded="lg"
+      color="black"
+      backgroundColor="white"
+      maxWidth="800"
+    >
+      <VStack display="flex" alignItems="start">
+        <Image src={imageSrc} alt={title} roundedTop="lg" />
+        <VStack display="flex" alignItems="start" padding="4">
+          <Heading fontSize={{ base: "l", md: "xl" }}>{title}</Heading>
+          <Text color="grey" fontSize={{ base: "sm", md: "md" }}>
+            {description}
+          </Text>
+          <Button variant="link" aria-label="button see more" role="button">
+            <HStack alignItems="center">
+              {" "}
+              <Text fontSize={{ base: "sm", md: "md" }}>See more</Text>{" "}
+              <FontAwesomeIcon icon={faArrowRight} />{" "}
+            </HStack>
+          </Button>
+        </VStack>
+      </VStack>
+    </Box>
+  );
 };
 
 export default CustomCard;
