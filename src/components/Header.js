@@ -1,13 +1,28 @@
 import React, { useEffect, useRef, useMemo } from "react";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
+
 import {
   faGithub,
   faLinkedin,
   faMedium,
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
-import { Box, HStack, Link } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  VStack,
+  IconButton,
+  Link,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { SocialButton } from "./SocialButton";
 
 const socials = [
@@ -34,8 +49,9 @@ const socials = [
 ];
 
 const Header = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
   const headerRef = useRef(null);
-
   useEffect(() => {
     let previousScrollY = window.scrollY;
     const handleScroll = () => {
@@ -65,6 +81,7 @@ const Header = () => {
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
+    onClose(); // Close the drawer if it's open
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -89,8 +106,8 @@ const Header = () => {
     >
       <Box color="white" margin="0 auto">
         <HStack
-          px={[4, 16]}
-          py={4}
+          px={[2, 12]}
+          py={2}
           justifyContent="space-between"
           alignItems="center"
         >
@@ -100,7 +117,37 @@ const Header = () => {
               <SocialButton key={props.url} {...props} />
             ))}
           </nav>
-          {isSmallScreen ? null : (
+          {isSmallScreen ? (
+            <>
+              <IconButton
+                icon={<FontAwesomeIcon icon={faBars} />}
+                aria-label="Open Menu"
+                variant="plain"
+                onClick={onOpen}
+                ref={btnRef}
+              />
+              <Drawer
+                isOpen={isOpen}
+                placement="top"
+                onClose={onClose}
+                finalFocusRef={btnRef}
+              >
+                <DrawerOverlay />
+                <DrawerContent>
+                  <DrawerCloseButton />
+
+                  <DrawerBody>
+                    <VStack spacing={4}>
+                      {/* Add links to Projects and Contact me section */}
+                      <Link onClick={handleClick("home")}>Home</Link>
+                      <Link onClick={handleClick("projects")}>Projects</Link>
+                      <Link onClick={handleClick("contact")}>Contact Me</Link>
+                    </VStack>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            </>
+          ) : (
             <nav>
               <HStack spacing={4}>
                 {/* Add links to Projects and Contact me section */}

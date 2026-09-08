@@ -44,14 +44,14 @@ const ProjectsSection = () => {
       spacing={8}
       alignItems="center"
     >
-      <Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }} mb={8} pt={12}>
+      <Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }} pt={[4, 12]}>
         Featured Projects
       </Heading>
       <Box
         display="grid"
         gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))"
         gridGap={8}
-        p={12}
+        p={[8, 12]}
       >
         {projects.map((project) => (
           <Card
