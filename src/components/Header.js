@@ -33,10 +33,35 @@ const socials = [
   },
 ];
 
-const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
-
-console.log(isSmallScreen);
 const Header = () => {
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    let previousScrollY = window.scrollY;
+    const handleScroll = () => {
+      if (headerRef.current) {
+        if (window.scrollY > 0 && window.scrollY > previousScrollY) {
+          //if the user is scrolling down, hide the header
+          headerRef.current.style.transform = "translateY(-200px)";
+          previousScrollY = window.scrollY;
+        } else {
+          //if the user is scrolling up, show the header
+          headerRef.current.style.transform = "translateY(0)";
+          previousScrollY = window.scrollY;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const isSmallScreen =
+    typeof window !== "undefined" &&
+    window.matchMedia("(max-width: 768px)").matches;
+
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
@@ -60,6 +85,7 @@ const Header = () => {
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
       zIndex={999}
+      ref={headerRef}
     >
       <Box color="white" margin="0 auto">
         <HStack
