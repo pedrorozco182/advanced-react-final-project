@@ -3,7 +3,7 @@ import { IconButton } from "@chakra-ui/react";
 
 export const SocialButton = ({ icon, url }) => {
   return (
-    <a href={url}>
+    <a href={url} target="_blank" rel="noopener noreferrer">
       <IconButton
         variant="plain"
         rounded="full"
