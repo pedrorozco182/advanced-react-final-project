@@ -1,13 +1,5 @@
 import React, { useEffect, useRef, useMemo } from "react";
-import {
-  Drawer,
-  DrawerBody,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-} from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import {
   faGithub,
@@ -15,15 +7,9 @@ import {
   faMedium,
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
-import {
-  Box,
-  HStack,
-  VStack,
-  IconButton,
-  Link,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, HStack, Link, useDisclosure } from "@chakra-ui/react";
 import { SocialButton } from "./SocialButton";
+import { MobileMenuDrawer } from "./MobileMenuDrawer";
 
 const socials = [
   {
@@ -50,7 +36,6 @@ const socials = [
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
   const headerRef = useRef(null);
   useEffect(() => {
     let previousScrollY = window.scrollY;
@@ -81,7 +66,7 @@ const Header = () => {
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
-    onClose(); // Close the drawer if it's open
+    onClose(); // Close the drawer when a link is clicked
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
@@ -118,35 +103,12 @@ const Header = () => {
             ))}
           </nav>
           {isSmallScreen ? (
-            <>
-              <IconButton
-                icon={<FontAwesomeIcon icon={faBars} />}
-                aria-label="Open Menu"
-                variant="plain"
-                onClick={onOpen}
-                ref={btnRef}
-              />
-              <Drawer
-                isOpen={isOpen}
-                placement="top"
-                onClose={onClose}
-                finalFocusRef={btnRef}
-              >
-                <DrawerOverlay />
-                <DrawerContent>
-                  <DrawerCloseButton />
-
-                  <DrawerBody>
-                    <VStack spacing={4}>
-                      {/* Add links to Projects and Contact me section */}
-                      <Link onClick={handleClick("home")}>Home</Link>
-                      <Link onClick={handleClick("projects")}>Projects</Link>
-                      <Link onClick={handleClick("contact")}>Contact Me</Link>
-                    </VStack>
-                  </DrawerBody>
-                </DrawerContent>
-              </Drawer>
-            </>
+            <MobileMenuDrawer
+              handleClick={handleClick}
+              onClose={onClose}
+              isOpen={isOpen}
+              onOpen={onOpen}
+            />
           ) : (
             <nav>
               <HStack spacing={4}>

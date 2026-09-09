@@ -59,7 +59,7 @@ const ContactMeSection = () => {
       spacing={8}
       id="contact-section"
     >
-      <VStack w="100%" maxW="1024px" p={[2, 12]} alignItems="center">
+      <VStack w="100%" p={[2, 12]} alignItems="center">
         <Heading
           as="h1"
           alignItems="center"
